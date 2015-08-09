@@ -7,6 +7,9 @@ window.qbaka.angular = function (module, apiKey) {
   module = typeof module === 'string' ? angular.module(module) : module;
   module.factory('$exceptionHandler', function ($log) {
     return function (exception) {
+      if(!(exception instanceof Error)){
+        exception = new Error(exception);
+      }
       $log.error(exception);
       window.qbaka.report(exception);
     };
